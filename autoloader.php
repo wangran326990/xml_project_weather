@@ -20,7 +20,7 @@ ini_set('xdebug.var_display_max_data', 1024);
  */
 spl_autoload_register(function ($class) {
   // project-specific namespace prefix
-  $prefix = 'weather_website';
+  $prefix = 'weather';
 
   // base directory for the namespace prefix
     $base_dir = __DIR__ . '/';

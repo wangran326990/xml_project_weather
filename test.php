@@ -7,6 +7,7 @@ use weather_website\libs\Router;
 require './libs/OpenWeatherAPI/vendor/autoload.php';
 require_once './autoloader.php';
 require_once "./config.php";
+
 new Router();
 
 // Language of data (try your own language here!):

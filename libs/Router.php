@@ -1,5 +1,5 @@
 <?php
-namespace weather_website\libs;
+namespace weather\libs;
 /**
  * Class Router, This class will find controller and action by compare the routeArray.
  * If find the controller and action, the action will be call
@@ -20,9 +20,10 @@ namespace weather_website\libs;
         private function route(){
             $this->route =filter_input(INPUT_POST, 'route');
             if($this->route === NULL){
-                $this->route = filter_input(INPUT_GET,'route');
-                if($this->route === NULL){
-                    $this->route=DEFAULT_ROUTE;
+
+                    $this->route = filter_input(INPUT_GET,'route');
+                    if($this->route === NULL){
+                        $this->route=DEFAULT_ROUTE;
                 }
             }
             $this->parseRoute();
@@ -61,10 +62,7 @@ namespace weather_website\libs;
                         foreach($actions as $action){
                             if($actionName == $action){
                                 $check = true;
-                                //var_dump($check);
-                                //require_once "./Controller/$controller.php";
-                                //var_dump($param);
-                                //$namespace = "Project\\MovieCalender\\Controller\\";
+
                                 call_user_func_array(array(NAMESPACE_CONTROLLER.$controller,$action),$param);
                             }
                         }

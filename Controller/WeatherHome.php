@@ -6,8 +6,13 @@
  * Time: 5:27 PM
  */
 
-namespace weather_website\Controller;
+namespace weather\Controller;
 
+
+
+
+use weather\Model\CurrentWeatherModel;
+use weather\Model\WeatherForecast;
 
 class WeatherHome
 {
@@ -18,8 +23,23 @@ class WeatherHome
     }
 
     public function index(){
+        $currentWeather = new CurrentWeatherModel();
+        $weatherForecast = new WeatherForecast();
 
-        echo "this is WeatherHome Index";
+
+       //
+        //get weather by city name;
+        //
+      // $cw = $currentWeather->getCurrentWeather('Toronto');
+
+       //get weather by lat and lon;
+      //  $cw = $currentWeather->getCurrentWeather(['lat'=>43.5942778,'lon'=> -79.6622719]);
+
+
+
+        $weatherForecast->weatherForecast('Toronto');
+
+        //var_dump($cw);
     }
 
 }
