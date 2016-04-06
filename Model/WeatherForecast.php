@@ -25,16 +25,19 @@ class WeatherForecast
     private $apiKey = OPENWEATHER_APIKEY;
 
     private $day;
-    public function __construct($day=1, $apiKey='', $lang='', $units=''){
+    public function __construct($day=5, $apiKey='', $lang='', $units=''){
         $this->apiKey = $apiKey!=''?$apiKey:OPENWEATHER_APIKEY;
         self::$owm = new OpenWeatherMap($this->apiKey);
         $this->lang = $lang!=''?$lang:'en';
         $this->units = $units!=''?$units:'imperial';
         $this->day = $day;
     }
+    /*
+     * get weather report less 5 days every 3 hours;
+     *
+     */
+    public function weatherForecast($query,  $days){
 
-    public function weatherForecast($query){
-           $wf = [];
            $weatherForecast = self::$owm->getWeatherForecast($query,$this->units,$this->lang,$this->apiKey, $this->day);
            $forecastDate =[];
            foreach($weatherForecast as $forecast){
@@ -67,9 +70,46 @@ class WeatherForecast
 
 
             }
+            $forecastWeather=[];
+            foreach ($forecastDate as $key=>$value){
 
-            var_dump($forecastDate);
+                $days--;
+                $forecastWeather[$key] = $value;
+                if($days==0){
+                    break;
+                }
+            }
 
+            return $forecastWeather;
+
+
+    }
+
+    public function weatherForecastNext3Hours($query){
+        $forecastNext3Hours =[];
+       $forecastWeather =  $this->weatherForecast($query, 1);
+        foreach ($forecastWeather as $key=>$value){
+
+            $forecastNext3Hours["Next3Hours"]=$value[0];
+            break;
+        }
+        return $forecastNext3Hours;
+
+    }
+
+    public function weatherForecastNextDay($query){
+        $forecastNextDay =[];
+        $forecastWeather =  $this->weatherForecast($query, 2);
+        $date =date('Y-m-d');
+        $NextDate =  date('Y-m-d', strtotime($date .' +1 day'));
+        //var_dump($NextDate);
+        foreach ($forecastWeather as $key=>$value){
+            if($NextDate ==$key) {
+                $forecastNextDay["NextDay"] = $value[0];
+                break;
+            }
+        }
+        return $forecastNextDay;
 
     }
 

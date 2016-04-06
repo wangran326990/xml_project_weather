@@ -355,7 +355,7 @@ class OpenWeatherMap
         } else {
             throw new \InvalidArgumentException('$endOrCount must be either a \DateTime or a positive integer.');
         }
-
+        var_dump($url);
         return $this->cacheOrFetchResult($url);
     }
 

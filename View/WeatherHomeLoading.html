@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<title>Bootstrap 101 Template</title>
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="./css/weather.css">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+	<header>
+		<div class="container-fluid">
+			<div class="row searchbar-style">
+			
+				<div class="col-sm-2 text">
+					Ran's Weather Site
+				</div>
+				
+				<div class="col-sm-5 col-sm-offset-1">
+						<form method="post" action="" class="">
+							<div class="form-group">
+								<label for="locationSearch">Search:</label>
+								<input id="searchBox" type="text" name="locationSearch" placeholder="Input Location"/>
+							</div>
+							
+						</form>	
+				</div>
+				
+				<div class="col-sm-2">
+					<p><span><img class="location-image" alt="Location Services" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAACHklEQVR42rWVT2iSYRzHN2fNZovtHaztJd6IRsIaY64RYx6kw6BA6FCEeejgMW/dskNQeBjCmHQwQshLgh2CtIjx8m7gVfAm6EEQEUEUBMV/KNr3J0+8oeNNk+cHH17e33P48H2e38Mzw6lmwWVgAHODTr/fn4aLBPNgBUhgjcmmFg0nEMAGOHC73c/S6bSL+lOLmOASWAK3SWC3253JZPIz1s8VRTlATzeV6C/BLbBvs9lexOPxQK/XOydJuVw+GWwjq/8R6ME1cBPct1qtz2OxmL/b7Z6RgHEWjUZ3B4lZTSpYBBLYM5vNT2VZ/tDpdBRVAECxWDz6czZji9h4XgU3wK7JZHociUSOW62WPCwgsHVKKBS6y9Ko9Q+BEYhgR5IkWzgcPmo2m6ejApVCofBOTaMhYlOyANbBtiAID4PB4PtqtfpLS8DSyIFAYGMkDWpYcAVcB1tGo/HQ7/e/rVQqP7QFKrlc7g2bxtFiAgNYBZt6vf6B1+t9XSqVvo8rIDB1pz6fT5rRqDmwDO4ggRPz/3V8gUo2m31Fk6kl0uXz+X1M0ceJBQyM+E+Px7OuJZn0sooXiTKZzEtKw1XUbrejLpdrhRa5ilKplJPOmasI5/rN4XAs0wJXEZ4DB6XhKmo0GmGLxbJITa6iRCLxhK4GL9EaSWq12hdRFBeox0skkAgv6SNKw1NkwKR9oi/98xTp6vX6PfpyEGkzbv0GanL/1xkqi7UAAAAASUVORK5CYII="></span>Current Location</p>
+				</div>
+				
+				<div class="col-sm-2">
+					<span class="f selected">°F</span>
+					<span class="slash">/</span>
+					<span class="c">°C</span>
+				</div>
+			</div>
+		</div>
+		
+		
+	</header>
+	<main class="container">
+		<!--Google Map and Basic weather report-->
+		<div class="row">
+			<div class="col-md-7 google-map">
+				
+			</div>
+			<div class="col-md-offset-1 col-md-4">
+				<h2>RIGHT NOW</h2>
+				<div class="row">
+					<div id="currentWeather" class="col-lg-12 Loading">
+						<img src="../images/InternetSlowdown_Day.gif"/>
+					</div>
+				</div>
+
+				<h2>Next 3 Hours</h2>
+				<div class="row">
+
+					<div id="Next3HourWeather" class="col-lg-12 Loading">
+						<img src="../images/InternetSlowdown_Day.gif"/>
+					</div>
+				</div>
+				<h2>Next 24 Hours</h2>
+				<div class="row">
+
+					<div id="NextDayWeather" class="col-lg-12 Loading">
+						<img src="../images/InternetSlowdown_Day.gif"/>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!--Cooming 7 Days Weather-->
+		
+		<div class="container container-space">
+			<h2>NEXT FIVE DAY WEATHER DETAIL</h2>
+			<div class="next-five">
+				<div class="Loading">
+					<img src="../images/InternetSlowdown_Day.gif"/>
+				</div>
+			</div>
+
+		</div>
+		
+		<!--Weather Chart-->
+		<div class="container container-space">
+			<div class="row">
+				<div class="col-lg-12">
+				<h2>WEATHER NEWS</h2>
+				
+				</div>
+			</div>	
+
+			<div class="row">
+				<div class="col-lg-12 Loading">
+					<img src="../images/InternetSlowdown_Day.gif"/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container container-space">
+			<div class="row">
+				<div class="col-lg-12">
+				<h2>FORECAST LINES</h2>
+				<p>View detailed forecast graphs for this location. These graphs show you the range of possible forecasts overlaid with our "best guess", so you can see at a glance what will happen over the course of the next week and where we are most– and least–confident in our predictions.</p>
+				</div>
+			</div>	
+
+			<div class="row">
+				<div class="col-lg-12 Loading">
+					<img src="../images/InternetSlowdown_Day.gif"/>
+				</div>
+			</div>
+		</div>
+	</main>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="./js/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="./js/weather.js"></script>
+</body>
+
+</html>

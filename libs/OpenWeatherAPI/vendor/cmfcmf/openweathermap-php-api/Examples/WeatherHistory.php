@@ -33,7 +33,7 @@ $lang = 'en';
 $units = 'metric';
 
 // Get OpenWeatherMap object. Don't use caching (take a look into Example_Cache.php to see how it works).
-$owm = new OpenWeatherMap();
+$owm = new OpenWeatherMap('78a06eae9ce24c95ca73ad49bce50e72');
 
 // Example 1: Get hourly weather history between 2014-01-01 and today.
 $history = $owm->getWeatherHistory('Berlin', new \DateTime('2014-01-01'), new \DateTime('now'), 'hour', $units, $lang);

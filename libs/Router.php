@@ -11,7 +11,7 @@ namespace weather\libs;
         public function __construct(){
 //            echo "This is Router";
             $this->routeArray=[
-                "WeatherHome"=>["index"]
+                "WeatherHome"=>["index","weatherInCurrentLocation"]
 
             ];
             $this->route();
@@ -54,8 +54,8 @@ namespace weather\libs;
 
             $check =false;
             foreach($this->routeArray as $controller=>$actions){
-                    //var_dump($controller);
-                    //var_dump($controllerName);
+//                    var_dump($controller);
+//                    var_dump($controllerName);
                 if($controller==$controllerName){
 
                     if(is_array($actions)){
