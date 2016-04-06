@@ -64,6 +64,7 @@ class WeatherForecast
                             $forecastDate[$key][$count]->weather = ['Description' => $current->weather->description,
                                 'icon' => $current->weather->icon,
                                 'iconUrl' => $current->weather->getIconUrl()];
+                            $forecastDate[$key][$count]->temperatureValue = $current->temperature->getValue();
                         $count++;
                     }
                 }

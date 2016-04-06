@@ -129,3 +129,13 @@ body{
     display: block;
     margin: 0 auto;
 }
+
+.weather-desc{
+    border-top: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+}
+
+.weather-p{
+    margin-bottom: 0px;
+    padding-top: 15px;
+}
