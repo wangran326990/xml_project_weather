@@ -11,7 +11,7 @@ namespace weather\libs;
         public function __construct(){
 //            echo "This is Router";
             $this->routeArray=[
-                "WeatherHome"=>["index","weatherInCurrentLocation",'weatherSearch']
+                "WeatherHome"=>["index","weatherInCurrentLocation",'weatherSearch','findWeatherById']
 
             ];
             $this->route();

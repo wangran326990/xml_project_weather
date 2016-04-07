@@ -2,8 +2,9 @@ var currentWeather;
 var weatherFordays;
 var weatherNext3Hours;
 var weatherNextDay;
-//var marker;
+var marker;
 var map;
+var googleInfoWindow;
 //$(document).ready(
 //	function(){
 //
@@ -53,10 +54,10 @@ function getWeatherInfo(position){
 		displayNextDay(weatherNextDay);
 		displayNextDays(weatherFordays);
 		map.setCenter(pos);
-		var googleInfoWindow = getInfoWindow(content);
-		var marker = getMarker(map,pos);
-		console.log(marker);
-		marker.addListener('click', function() {
+		googleInfoWindow = getInfoWindow(content);
+		 marker = getMarker(map,pos);
+		//console.log(marker);
+		 marker.addListener('click', function() {
 			googleInfoWindow.open(map, marker);
 		});
 
@@ -65,12 +66,33 @@ function getWeatherInfo(position){
 
 
 function getWeatherInfoByCity(){
-	$(".city").click(function(){
+	$("body").on("click",".city",function(){
 		var id = $(this).attr("name");
 		var url= "./index.php?route=WeatherHome/findWeatherById/"+id;
+		console.log(url);
 		$.get(url, function(data,success){
 			var obj = JSON.parse(data);
 			console.log(obj);
+
+			currentWeather= obj.weatherCurrent;
+			weatherFordays= obj.weatherFor3days;
+			weatherNext3Hours = obj.weatherNext3Hours;
+			weatherNextDay =obj.weatherNextDay;
+			var pos = {
+				lat: currentWeather.lat,
+				lng: currentWeather.lon
+			};
+			var content = displayCurrentWeatherMap(currentWeather);
+			displayCurrentWeather(currentWeather);
+			displayNext3Hours(weatherNext3Hours);
+			displayNextDay(weatherNextDay);
+			displayNextDays(weatherFordays);
+			map.setCenter(pos);
+			googleInfoWindow.setContent(content);
+			marker.setPosition(pos);
+			//marker.addListener('click', function() {
+			//	googleInfoWindow.open(map, marker);
+			//});
 		})
 	});
 }
@@ -113,7 +135,7 @@ function hideWeatherDetail(){
 function displayCurrentWeather(currentWeather){
 		//console.log(currentWeather);
 		var html ="";
-
+		$("#currentCity").html(currentWeather.city);
 		html ="<div class='row'><div class='col-md-3'><img src="+"'"+currentWeather.weatherIcon+"'"+"/></div>";
 		html+="<div class='col-md-9'><span class='temp-font'>"+currentWeather.temperature+"</span></div></div>";
 		html+="<div class='row'><p class='col-lg-12 desc'>"+"windspeed "+currentWeather.windspeed+" "+currentWeather.weatherDescription+"</p></div>";
@@ -331,7 +353,7 @@ function toggleBounce() {
 }
 
 function getInfoWindow(info){
-	var infowindow = new google.maps.InfoWindow({
+	 var infowindow = new google.maps.InfoWindow({
 		content: info
 	});
 	return infowindow;

@@ -131,10 +131,10 @@ class WeatherHome
     function findWeatherById($id){
         $currentWeather = new CurrentWeatherModel();
         $weatherForecast = new WeatherForecast();
-        $weatherFor3days = $weatherForecast->weatherForecast(['lat' => $lat, 'lon' => $lon], 3);
-        $weatherNext3Hours = $weatherForecast->weatherForecastNext3Hours(['lat' => $lat, 'lon' => $lon]);
-        $weatherNestDay = $weatherForecast->weatherForecastNextDay(['lat' => $lat, 'lon' => $lon]);
-        $cw = $currentWeather->getCurrentWeather(['lat' => $lat, 'lon' => $lon]);
+        $weatherFor3days = $weatherForecast->weatherForecast($id, 3);
+        $weatherNext3Hours = $weatherForecast->weatherForecastNext3Hours($id);
+        $weatherNestDay = $weatherForecast->weatherForecastNextDay($id);
+        $cw = $currentWeather->getCurrentWeather($id);
         $weatherInfo = new \stdClass();
 
         $weatherInfo->weatherCurrent = $cw;
