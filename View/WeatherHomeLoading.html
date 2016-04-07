@@ -34,6 +34,7 @@
 							<div class="form-group">
 								<label for="locationSearch">Search:</label>
 								<input id="searchBox" type="text" name="locationSearch" placeholder="Input Location"/>
+								<div id="livesearch"></div>
 							</div>
 							
 						</form>	
@@ -56,8 +57,17 @@
 	<main class="container">
 		<!--Google Map and Basic weather report-->
 		<div class="row">
-			<div class="col-md-7 google-map">
-				
+			<div class="col-md-7 ">
+				<div  class="row">
+					<div id="map" class="col-lg-12 google-map">
+
+					</div>
+				</div>
+				<div  class="row">
+					<div  class="col-lg-12  no-padding">
+						<button type="button" id="map-button" class="btn btn-default">SHOW CANADA WEATHER</button>
+					</div>
+				</div>
 			</div>
 			<div class="col-md-offset-1 col-md-4">
 				<h2>RIGHT NOW</h2>
@@ -85,7 +95,7 @@
 			</div>
 		</div>
 		<!--Cooming 7 Days Weather-->
-		
+
 		<div class="container container-space">
 			<h2>NEXT FIVE DAY WEATHER DETAIL</h2>
 			<div id="next-five" class="next-five">
@@ -131,6 +141,10 @@
 	<script src="./js/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="./js/weather.js"></script>
+
+	<script async defer
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD03BUPUsVOstRlUIYbE-SwoED9Z0vRZl8&callback=initMap">
+	</script>
 </body>
 
 </html>

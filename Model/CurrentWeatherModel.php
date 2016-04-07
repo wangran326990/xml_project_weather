@@ -41,7 +41,7 @@ class CurrentWeatherModel
         $cw['windDirect'] = $currentWeather->wind->direction->getDescription();
         $cw['weatherDescription']= $currentWeather->weather->description;
         $cw['weatherIcon'] = $currentWeather->weather->getIconUrl();
-
+        $cw['city'] = $currentWeather->city->name;
         return $cw;
     }
 }
