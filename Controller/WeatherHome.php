@@ -12,6 +12,7 @@ namespace weather\Controller;
 
 
 use weather\Model\CurrentWeatherModel;
+use weather\Model\getAllCityWeather;
 use weather\Model\WeatherForecast;
 
 class WeatherHome
@@ -142,6 +143,11 @@ class WeatherHome
         $weatherInfo->weatherNext3Hours = $weatherNext3Hours;
         $weatherInfo->weatherNextDay = $weatherNestDay;
         echo json_encode($weatherInfo);
+    }
+
+    function showAllCityFWeather(){
+        $allCityWeather = new getAllCityWeather();
+        echo $allCityWeather->getCitiesWeather();
     }
 
 

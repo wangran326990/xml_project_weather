@@ -2,22 +2,10 @@ var currentWeather;
 var weatherFordays;
 var weatherNext3Hours;
 var weatherNextDay;
-var marker;
+var markers=[];
 var map;
-var googleInfoWindow;
-//$(document).ready(
-//	function(){
-//
-//		//hideWeatherDetail();
-//		if(navigator.geolocation){
-//			navigator.geolocation.getCurrentPosition(getWeatherInfo);
-//		}else{
-//
-//		}
-//		hideWeatherDetail();
-//		searchCity();
-//	}
-//);
+//var googleInfoWindow;
+
 
 
 function init(){
@@ -31,6 +19,7 @@ function init(){
 		getWeatherInfoByCity();
 		hideWeatherDetail();
 		searchCity();
+		showAllCityFWeatherOnMap();
 }
 	
 
@@ -43,7 +32,7 @@ function getWeatherInfo(position){
 			};
 	$.get($url,function(data, status){
 		var obj = JSON.parse(data);
-		//console.log(obj);
+		console.log(obj);
 		currentWeather= obj.weatherCurrent;
 		weatherFordays= obj.weatherFor3days;
 		weatherNext3Hours = obj.weatherNext3Hours;
@@ -54,8 +43,8 @@ function getWeatherInfo(position){
 		displayNextDay(weatherNextDay);
 		displayNextDays(weatherFordays);
 		map.setCenter(pos);
-		googleInfoWindow = getInfoWindow(content);
-		 marker = getMarker(map,pos);
+		 var googleInfoWindow = getInfoWindow(content);
+		var marker = getMarker(map,pos,currentWeather.weatherIcon, currentWeather.city);
 		//console.log(marker);
 		 marker.addListener('click', function() {
 			googleInfoWindow.open(map, marker);
@@ -64,6 +53,10 @@ function getWeatherInfo(position){
 	});
 }
 
+/*
+	get City By Id
+
+ */
 
 function getWeatherInfoByCity(){
 	$("body").on("click",".city",function(){
@@ -78,6 +71,7 @@ function getWeatherInfoByCity(){
 			weatherFordays= obj.weatherFor3days;
 			weatherNext3Hours = obj.weatherNext3Hours;
 			weatherNextDay =obj.weatherNextDay;
+			deleteMarkers();
 			var pos = {
 				lat: currentWeather.lat,
 				lng: currentWeather.lon
@@ -88,14 +82,60 @@ function getWeatherInfoByCity(){
 			displayNextDay(weatherNextDay);
 			displayNextDays(weatherFordays);
 			map.setCenter(pos);
-			googleInfoWindow.setContent(content);
+			map.setZoom(13);
+			var googleInfoWindow = getInfoWindow(content);
+			var marker = getMarker(map,pos,currentWeather.weatherIcon,currentWeather.city);
 			marker.setPosition(pos);
-			//marker.addListener('click', function() {
-			//	googleInfoWindow.open(map, marker);
-			//});
+			marker.addListener('click', function() {
+				googleInfoWindow.open(map, marker);
+			});
+
 		})
 	});
 }
+
+function showAllCityFWeatherOnMap(){
+	$('#map-button').click(function(){
+		var url= "./index.php?route=WeatherHome/showAllCityFWeather";
+		$.get(url, function(data,success){
+			var obj =JSON.parse(data);
+			//console.log(obj);
+
+			displayCitisWeahterOnMap(obj,'F');
+		})
+	})
+}
+
+function displayCitisWeahterOnMap(obj,units){
+
+	$.each(obj.list, function(i,item){
+		console.log(item);
+		var content ='';
+		var weather =item.weather[0];
+		var pos = {
+			lat: item.coord.lat,
+			lng: item.coord.lon
+		};
+		var iconLink = "http://openweathermap.org/img/w/"+weather.icon+".png";
+
+		content +="<div><h5>"+item.name+"</h5>";
+		content +="<p>"+item.main.temp+" "+units+"</p>";
+		content +="<p>"+weather.description+"</p></div>";
+
+		var googleInfoWindow = getInfoWindow(content);
+		var marker = getMarker(map, pos, iconLink, item.name);
+		map.setZoom(5);
+		//console.log(marker);
+		marker.addListener('click', function() {
+			googleInfoWindow.open(map, marker);
+		});
+
+
+	});
+
+
+}
+
 
 //function getCurrentWeatherInfo(position, map){
 //	//var content;
@@ -239,7 +279,7 @@ function getWeekDayName(weekday){
 	//console.log(weekday);
 	weekday++;
 	var weekdays = new Array(7);
-	weekdays[0]=  "Sunday";
+	weekdays[7]=  "Sunday";
 	weekdays[1] = "Monday";
 	weekdays[2] = "Tuesday";
 	weekdays[3] = "Wednesday";
@@ -331,26 +371,21 @@ function MapByCountry(country){
 
 
 
-function getMarker(map,pos) {
+function getMarker(map,pos,icon,title) {
 
-			marker = new google.maps.Marker({
+			var markerMap = new google.maps.Marker({
 				map: map,
-				draggable: true,
 				animation: google.maps.Animation.DROP,
-				position: pos
+				position: pos,
+				icon: icon,
+				title:title
 			});
-			marker.addListener('click', toggleBounce);
-			return marker;
+			//markerMap.addListener('click', toggleBounce);
+			markers.push(markerMap);
+			return markerMap;
 
 }
 
-function toggleBounce() {
-	if (marker.getAnimation() !== null) {
-		marker.setAnimation(null);
-	} else {
-		marker.setAnimation(google.maps.Animation.BOUNCE);
-	}
-}
 
 function getInfoWindow(info){
 	 var infowindow = new google.maps.InfoWindow({
@@ -374,3 +409,21 @@ function getCurrentLocation(){
 		})
 	}
 }
+
+function setMapOnAll(map) {
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(map);
+	}
+}
+
+function clearMarkers() {
+	setMapOnAll(null);
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+	clearMarkers();
+	markers = [];
+}
+
+
