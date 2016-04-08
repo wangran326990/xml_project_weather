@@ -4,35 +4,119 @@ var weatherNext3Hours;
 var weatherNextDay;
 var markers=[];
 var map;
+var unit;
 //var googleInfoWindow;
+var citys= {
+	'Hamilton':5969782,
+	'Kingston':5992495,
+	'Mississauga':6075357,
+	'Niagara Falls':6087892,
+	'Barrie':5894171,
+	'Belleville':5897885,
+	'Brampton':5907364,
+	'Brant':5907983,
+	'Brantford':5907990,
+	'Brockville':5909294,
+	'Burlington':4849826,
+	'Cambridge':5913695,
+	'Dryden':5942913,
+	'Elliot Lake':5947866,
+	'Greater Sudbury':5964700,
+	'Guelph':5967629,
+	'Haldimand County':5969093,
+	'Kawartha Lakes':5989818,
+	'Kenora':5991055,
+	'Kitchener':5992996,
+	'London':6058560,
+	'Markham':2650379,
+	'Norfolk County':6089125,
+	'North Bay':6089426,
+	'Orillia':6094325,
+	'Oshawa':6094578,
+	'Ottawa':6094817,
+	'Owen Sound':6095645,
+	'Pembroke':6100832,
+	'Peterborough':6101645,
+	'Pickering':6104111,
+	'Port Colborne':6111704,
+	'Prince Edward County':6113355,
+	'Quinte West':6115355,
+	'Sarnia':6141190,
+	'Sault Ste. Marie':6141439,
+	'St. Thomas':6158357,
+	'Stratford':6157977,
+	'Temiskaming Shores':6162659,
+	'Thorold':6165719,
+	'Thunder Bay':6166142,
+	'Timmins':6166739,
+	'Toronto':6167865,
+	'Vaughan':4599503,
+	'Waterloo':6176823,
+	'Welland':6177869,
+	'Windsor':6182958,
+	'Woodstock':6184364
+};
+
+
 
 
 
 function init(){
 
 		//hideWeatherDetail();
-		if(navigator.geolocation){
-			navigator.geolocation.getCurrentPosition(getWeatherInfo);
-		}else{
-
-		}
+		currentLocation();
 		getWeatherInfoByCity();
 		hideWeatherDetail();
 		searchCity();
 		showAllCityFWeatherOnMap();
+		submitFormOperation();
+}
+
+function currentLocation(){
+	if(navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(getWeatherInfo);
+	}else{
+
+	}
+}
+
+
+
+function submitFormOperation(){
+	$("#searchform").submit(
+		function() {
+
+			var flag=0;
+			var city=$("#searchBox").val();
+			console.log(city);
+			$.each(citys, function(i,id){
+				if(city.toUpperCase()=== i.toUpperCase()){
+					$("#currentCity").html('');
+					$("#currentCity").css("color","white");
+					ajaxCityWeather(id);
+					flag=1;
+				}
+			});
+			if(flag==0){
+				$("#currentCity").css("color","red").html("no matched city");
+			}
+
+			return false;
+		}
+	)
 }
 	
 
 function getWeatherInfo(position){
 	$url ="./index.php?route=WeatherHome/weatherInCurrentLocation/"+position.coords.latitude+'/'+position.coords.longitude;
-	console.log($url);
+	//console.log($url);
 	var pos = {
 				lat: position.coords.latitude,
 				lng: position.coords.longitude
 			};
 	$.get($url,function(data, status){
 		var obj = JSON.parse(data);
-		console.log(obj);
+		//console.log(obj);
 		currentWeather= obj.weatherCurrent;
 		weatherFordays= obj.weatherFor3days;
 		weatherNext3Hours = obj.weatherNext3Hours;
@@ -61,37 +145,41 @@ function getWeatherInfo(position){
 function getWeatherInfoByCity(){
 	$("body").on("click",".city",function(){
 		var id = $(this).attr("name");
-		var url= "./index.php?route=WeatherHome/findWeatherById/"+id;
-		console.log(url);
-		$.get(url, function(data,success){
-			var obj = JSON.parse(data);
-			console.log(obj);
-
-			currentWeather= obj.weatherCurrent;
-			weatherFordays= obj.weatherFor3days;
-			weatherNext3Hours = obj.weatherNext3Hours;
-			weatherNextDay =obj.weatherNextDay;
-			deleteMarkers();
-			var pos = {
-				lat: currentWeather.lat,
-				lng: currentWeather.lon
-			};
-			var content = displayCurrentWeatherMap(currentWeather);
-			displayCurrentWeather(currentWeather);
-			displayNext3Hours(weatherNext3Hours);
-			displayNextDay(weatherNextDay);
-			displayNextDays(weatherFordays);
-			map.setCenter(pos);
-			map.setZoom(13);
-			var googleInfoWindow = getInfoWindow(content);
-			var marker = getMarker(map,pos,currentWeather.weatherIcon,currentWeather.city);
-			marker.setPosition(pos);
-			marker.addListener('click', function() {
-				googleInfoWindow.open(map, marker);
-			});
-
-		})
+		ajaxCityWeather(id);
 	});
+}
+
+function ajaxCityWeather(id){
+	var url= "./index.php?route=WeatherHome/findWeatherById/"+id;
+	//console.log(url);
+	$.get(url, function(data,success){
+		var obj = JSON.parse(data);
+		//console.log(obj);
+
+		currentWeather= obj.weatherCurrent;
+		weatherFordays= obj.weatherFor3days;
+		weatherNext3Hours = obj.weatherNext3Hours;
+		weatherNextDay =obj.weatherNextDay;
+		deleteMarkers();
+		var pos = {
+			lat: currentWeather.lat,
+			lng: currentWeather.lon
+		};
+		var content = displayCurrentWeatherMap(currentWeather);
+		displayCurrentWeather(currentWeather);
+		displayNext3Hours(weatherNext3Hours);
+		displayNextDay(weatherNextDay);
+		displayNextDays(weatherFordays);
+		map.setCenter(pos);
+		map.setZoom(13);
+		var googleInfoWindow = getInfoWindow(content);
+		var marker = getMarker(map,pos,currentWeather.weatherIcon,currentWeather.city);
+		marker.setPosition(pos);
+		marker.addListener('click', function() {
+			googleInfoWindow.open(map, marker);
+		});
+
+	})
 }
 
 function showAllCityFWeatherOnMap(){
@@ -109,7 +197,7 @@ function showAllCityFWeatherOnMap(){
 function displayCitisWeahterOnMap(obj,units){
 
 	$.each(obj.list, function(i,item){
-		console.log(item);
+		//console.log(item);
 		var content ='';
 		var weather =item.weather[0];
 		var pos = {
@@ -135,30 +223,6 @@ function displayCitisWeahterOnMap(obj,units){
 
 
 }
-
-
-//function getCurrentWeatherInfo(position, map){
-//	//var content;
-//	$url ="./index.php?route=WeatherHome/weatherInCurrentLocation/"+position.lat+'/'+position.lng;
-//	console.log($url);
-//	$.get($url,function(data, status){
-//		var obj = JSON.parse(data);
-//		//console.log(obj);
-//		var currentWeather1 = obj.weatherCurrent;
-//		content = displayCurrentWeather(currentWeather1);
-//		var googleInfoWindow = getInfoWindow(content);
-//		var marker = getMarker(map,position);
-//		console.log(marker);
-//		marker.addListener('click', function() {
-//			googleInfoWindow.open(map, marker);
-//		});
-//	});
-//
-//
-//}
-
-
-
 
 function hideWeatherDetail(){
 
@@ -222,7 +286,7 @@ function displayNextDay(Weather){
 }
 
 function displayNextDays(Weather){
-	console.log(Weather);
+	//console.log(Weather);
 	var date = new Date();
 	var html="";
 	var objweather ={};
@@ -426,4 +490,9 @@ function deleteMarkers() {
 	markers = [];
 }
 
-
+/*
+	change between F and C.
+ */
+//function changeUnit(){
+//	$('f')
+//}

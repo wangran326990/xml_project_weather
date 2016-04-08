@@ -25,7 +25,7 @@ class WeatherForecast
     private $apiKey = OPENWEATHER_APIKEY;
 
     private $day;
-    public function __construct($day=5, $apiKey='', $lang='', $units=''){
+    public function __construct($units='',$day=5, $apiKey='', $lang=''){
         $this->apiKey = $apiKey!=''?$apiKey:OPENWEATHER_APIKEY;
         self::$owm = new OpenWeatherMap($this->apiKey);
         $this->lang = $lang!=''?$lang:'en';

@@ -22,7 +22,7 @@ class CurrentWeatherModel
     private $units = '';
 
     private $apiKey = OPENWEATHER_APIKEY;
-    public function __construct($apiKey='', $lang='', $units=''){
+    public function __construct($units='',$apiKey='', $lang=''){
         $this->apiKey = $apiKey!=''?$apiKey:OPENWEATHER_APIKEY;
         self::$owm = new OpenWeatherMap($this->apiKey);
         $this->lang = $lang!=''?$lang:'en';
