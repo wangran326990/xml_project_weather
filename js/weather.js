@@ -4,7 +4,8 @@ var weatherNext3Hours;
 var weatherNextDay;
 var markers=[];
 var map;
-var unit;
+var unit='imperial';
+var unitAbb='F';
 //var googleInfoWindow;
 var citys= {
 	'Hamilton':5969782,
@@ -68,13 +69,18 @@ function init(){
 		getWeatherInfoByCity();
 		hideWeatherDetail();
 		searchCity();
-		showAllCityFWeatherOnMap();
+		showAllCityWeatherOnMap();
 		submitFormOperation();
+		changeUnit();
+
+		//createVideo();
+
 }
 
 function currentLocation(){
 	if(navigator.geolocation){
 		navigator.geolocation.getCurrentPosition(getWeatherInfo);
+
 	}else{
 
 	}
@@ -88,12 +94,13 @@ function submitFormOperation(){
 
 			var flag=0;
 			var city=$("#searchBox").val();
+			$("#searchBox").val('');
 			console.log(city);
 			$.each(citys, function(i,id){
 				if(city.toUpperCase()=== i.toUpperCase()){
 					$("#currentCity").html('');
 					$("#currentCity").css("color","white");
-					ajaxCityWeather(id);
+					ajaxCityWeather(id,unit);
 					flag=1;
 				}
 			});
@@ -108,7 +115,7 @@ function submitFormOperation(){
 	
 
 function getWeatherInfo(position){
-	$url ="./index.php?route=WeatherHome/weatherInCurrentLocation/"+position.coords.latitude+'/'+position.coords.longitude;
+	$url ="./index.php?route=WeatherHome/weatherInCurrentLocation/"+position.coords.latitude+'/'+position.coords.longitude+'/'+unit;
 	//console.log($url);
 	var pos = {
 				lat: position.coords.latitude,
@@ -116,7 +123,7 @@ function getWeatherInfo(position){
 			};
 	$.get($url,function(data, status){
 		var obj = JSON.parse(data);
-		//console.log(obj);
+		console.log(obj);
 		currentWeather= obj.weatherCurrent;
 		weatherFordays= obj.weatherFor3days;
 		weatherNext3Hours = obj.weatherNext3Hours;
@@ -126,6 +133,8 @@ function getWeatherInfo(position){
 		displayNext3Hours(weatherNext3Hours);
 		displayNextDay(weatherNextDay);
 		displayNextDays(weatherFordays);
+		//console.log(currentWeather.city);
+		ajaxYouTube(currentWeather.city);
 		map.setCenter(pos);
 		 var googleInfoWindow = getInfoWindow(content);
 		var marker = getMarker(map,pos,currentWeather.weatherIcon, currentWeather.city);
@@ -133,7 +142,7 @@ function getWeatherInfo(position){
 		 marker.addListener('click', function() {
 			googleInfoWindow.open(map, marker);
 		});
-
+		//ajaxYouTube()
 	});
 }
 
@@ -145,12 +154,12 @@ function getWeatherInfo(position){
 function getWeatherInfoByCity(){
 	$("body").on("click",".city",function(){
 		var id = $(this).attr("name");
-		ajaxCityWeather(id);
+		ajaxCityWeather(id,unit);
 	});
 }
 
-function ajaxCityWeather(id){
-	var url= "./index.php?route=WeatherHome/findWeatherById/"+id;
+function ajaxCityWeather(id,unit){
+	var url= "./index.php?route=WeatherHome/findWeatherById/"+id+"/"+unit;
 	//console.log(url);
 	$.get(url, function(data,success){
 		var obj = JSON.parse(data);
@@ -160,6 +169,7 @@ function ajaxCityWeather(id){
 		weatherFordays= obj.weatherFor3days;
 		weatherNext3Hours = obj.weatherNext3Hours;
 		weatherNextDay =obj.weatherNextDay;
+		ajaxYouTube(currentWeather.city);
 		deleteMarkers();
 		var pos = {
 			lat: currentWeather.lat,
@@ -182,20 +192,22 @@ function ajaxCityWeather(id){
 	})
 }
 
-function showAllCityFWeatherOnMap(){
-	$('#map-button').click(function(){
-		var url= "./index.php?route=WeatherHome/showAllCityFWeather";
+function showAllCityWeatherOnMap(){
+	$('.F-button').click(function(){
+		var url= "./index.php?route=WeatherHome/showAllCityFWeather/"+unit;
+		console.log(url);
 		$.get(url, function(data,success){
 			var obj =JSON.parse(data);
-			//console.log(obj);
+			console.log(obj);
 
-			displayCitisWeahterOnMap(obj,'F');
+			displayCitisWeahterOnMap(obj,unitAbb);
 		})
 	})
 }
 
-function displayCitisWeahterOnMap(obj,units){
 
+function displayCitisWeahterOnMap(obj,units){
+	console.log(units);
 	$.each(obj.list, function(i,item){
 		//console.log(item);
 		var content ='';
@@ -493,6 +505,66 @@ function deleteMarkers() {
 /*
 	change between F and C.
  */
-//function changeUnit(){
-//	$('f')
-//}
+function changeUnit() {
+	$('.f').click(
+		function () {
+
+			unit = "imperial";
+			unitAbb = 'F';
+			$('.c').removeClass('selected');
+			$(this).removeClass('selected');
+			$(this).addClass('selected');
+			map.setZoom(13);
+			deleteMarkers();
+			currentLocation();
+		}
+	);
+
+	$('.c').click(
+		function () {
+			unit = "metric";
+			unitAbb = 'C';
+			$('.f').removeClass('selected');
+			$(this).removeClass('selected');
+			$(this).addClass('selected');
+			map.setZoom(13);
+			deleteMarkers();
+			currentLocation();
+		}
+	);
+
+}
+
+
+//YOUTUBE API
+
+function ajaxYouTube(cityName){
+	//console.log(cityName);
+	url="./index.php?route=WeatherHome/searchWeatherVideo/"+cityName;
+	console.log(url);
+	$.get(url, function(data, success){
+			var obj = JSON.parse(data);
+			var html = creatVideos(obj,2);
+			$('#videos').html(html);
+	})
+}
+
+function creatVideos(obj,number){
+	var html="";
+	//console.log(obj);
+	$.each(obj.items, function(i,video){
+		if(i<number) {
+			console.log(video);
+			var url = "https://www.youtube.com/embed/" + video.id.videoId;
+			html += "<div class='col-lg-6'><h3>"+video.snippet.title+"</h3><iframe type='text/html'  width='440' height='390' src=" + "'" + url + "'" + "></iframe></div>";
+		}
+	});
+	return html;
+}
+
+//parse CanadaCity.json convert it to array
+
+function getCitiesArray(){
+	$.get("")
+}
+

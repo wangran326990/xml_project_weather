@@ -14,6 +14,7 @@ namespace weather\Controller;
 use weather\Model\CurrentWeatherModel;
 use weather\Model\getAllCityWeather;
 use weather\Model\WeatherForecast;
+use weather\Model\YouTubeAPIModel;
 
 class WeatherHome
 {
@@ -44,10 +45,10 @@ class WeatherHome
         require_once "./View/WeatherHomeLoading.html";
     }
 
-    public function weatherInCurrentLocation($lat, $lon)
+    public function weatherInCurrentLocation($lat, $lon, $unit)
     {
-        $currentWeather = new CurrentWeatherModel();
-        $weatherForecast = new WeatherForecast();
+        $currentWeather = new CurrentWeatherModel($unit);
+        $weatherForecast = new WeatherForecast($unit);
         $weatherFor3days = $weatherForecast->weatherForecast(['lat' => $lat, 'lon' => $lon], 3);
         $weatherNext3Hours = $weatherForecast->weatherForecastNext3Hours(['lat' => $lat, 'lon' => $lon]);
         $weatherNestDay = $weatherForecast->weatherForecastNextDay(['lat' => $lat, 'lon' => $lon]);
@@ -120,7 +121,7 @@ class WeatherHome
             $search = strtolower($search);
             $len=strlen($search);
             foreach ($citys as $key=>$value){
-                if (stristr($search, substr($key, 0, $len))) {
+                if (stristr($search, substr($key,0,$len))) {
                     $hint[] = "<a href='#' name='$value' class='city'>$key</a>";
                 }
             }
@@ -129,9 +130,9 @@ class WeatherHome
         echo json_encode($hint);
     }
 
-    function findWeatherById($id){
-        $currentWeather = new CurrentWeatherModel();
-        $weatherForecast = new WeatherForecast();
+    function findWeatherById($id,$unit){
+        $currentWeather = new CurrentWeatherModel($unit);
+        $weatherForecast = new WeatherForecast($unit);
         $weatherFor3days = $weatherForecast->weatherForecast($id, 3);
         $weatherNext3Hours = $weatherForecast->weatherForecastNext3Hours($id);
         $weatherNestDay = $weatherForecast->weatherForecastNextDay($id);
@@ -145,9 +146,14 @@ class WeatherHome
         echo json_encode($weatherInfo);
     }
 
-    function showAllCityFWeather(){
+    function showAllCityFWeather($unit){
         $allCityWeather = new getAllCityWeather();
-        echo $allCityWeather->getCitiesWeather();
+        echo $allCityWeather->getCitiesWeather($unit);
+    }
+
+    function searchWeatherVideo($cityName){
+          $weatherReportVideo = new YouTubeAPIModel();
+          echo $weatherReportVideo->SearchVideo($cityName);
     }
 
 
