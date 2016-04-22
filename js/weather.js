@@ -135,6 +135,11 @@ function getWeatherInfo(position){
 		displayNextDay(weatherNextDay);
 		displayNextDays(weatherFordays);
 		//console.log(currentWeather.city);
+		//////add chart/////////////////
+		//loadGoogleChart();
+		//getObjectValue();
+		loadGoogleChart();
+		////////////////////////////////
 		ajaxYouTube(currentWeather.city);
 		map.setCenter(pos);
 		 var googleInfoWindow = getInfoWindow(content);
@@ -595,14 +600,11 @@ function loadGoogleChart(){
 }
 
 
-function drawChart(weatherData) {
-	var data = google.visualization.arrayToDataTable([
-		['Year', 'Sales', 'Expenses'],
-		['2004',  1000,      400],
-		['2005',  1170,      460],
-		['2006',  660,       1120],
-		['2007',  1030,      540]
-	]);
+function drawChart() {
+	//weatherFordays
+	var temperatures =getObjectValue();
+	console.log(temperatures);
+	var data = google.visualization.arrayToDataTable(temperatures);
 
 	var options = {
 		title: 'Company Performance',
@@ -610,7 +612,17 @@ function drawChart(weatherData) {
 		legend: { position: 'bottom' }
 	};
 
-	var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+	var chart = new google.visualization.LineChart(document.getElementById('displayChart'));
 
 	chart.draw(data, options);
+}
+
+function getObjectValue() {
+	var temperature = [['Date','Temperature']];
+	for (var key in weatherFordays) {
+		var array = [key,weatherFordays[key][0].temperatureValue];
+		temperature.push(array);
+	}
+	//console.log(temperature);
+	return temperature;
 }
