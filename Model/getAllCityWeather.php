@@ -19,6 +19,12 @@ class getAllCityWeather
     private $apiKey = '';
     public function __construct($apiKey='')
     {
+        /*
+       * can not get all cities weather conditions
+       * because the api does not allow search 3310 cities at same time,
+       * so i put all the ontario cities in an array
+       *
+       */
        $this->citys=[
             'Hamilton'=>5969782,
             'Kingston'=>5992495,
@@ -69,10 +75,17 @@ class getAllCityWeather
             'Windsor'=>6182958,
             'Woodstock'=>6184364
         ];
+
+
         //$this->convertJsonToArray();
         $this->apiKey = $apiKey!=''?$apiKey:OPENWEATHER_APIKEY;
         $this->fetcher = new CurlFetcher();
     }
+
+    /*
+     * get cities Weather conditions
+     *
+     */
 
     public function getCitiesWeather($units = 'imperial', $lang = 'en', $appid = ''){
         $url = self::CombineUrl();
@@ -87,6 +100,11 @@ class getAllCityWeather
        $content = $this->fetcher->fetch($url);
        return $content;
     }
+
+    /*
+     * build request url
+     *
+     */
 
     private function CombineUrl(){
         $id ="id=";

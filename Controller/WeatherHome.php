@@ -24,23 +24,33 @@ class WeatherHome
     {
 
     }
+    /*
+     * website initialization
 
+     *
+     */
     public function index()
     {
 
-        $currentWeather = new CurrentWeatherModel();
-        $weatherForecast = new WeatherForecast();
+        //$currentWeather = new CurrentWeatherModel();
+        //$weatherForecast = new WeatherForecast();
 
-        $weatherForecast->weatherForecastNextDay(['lat' => 43.5942778, 'lon' => -79.6622719]);
+       // $weatherForecast->weatherForecastNextDay(['lat' => 43.5942778, 'lon' => -79.6622719]);
 
         require_once "./View/WeatherHomeLoading.html";
     }
+
+    /*
+    * ajax call this function from weather.js
+    *show current location weather report on the website.
+    *
+    */
 
     public function weatherInCurrentLocation($lat, $lon, $unit)
     {
         $currentWeather = new CurrentWeatherModel($unit);
         $weatherForecast = new WeatherForecast($unit);
-        $weatherFor3days = $weatherForecast->weatherForecast(['lat' => $lat, 'lon' => $lon], 3);
+        $weatherFor3days = $weatherForecast->weatherForecast(['lat' => $lat, 'lon' => $lon], 5);
         $weatherNext3Hours = $weatherForecast->weatherForecastNext3Hours(['lat' => $lat, 'lon' => $lon]);
         $weatherNestDay = $weatherForecast->weatherForecastNextDay(['lat' => $lat, 'lon' => $lon]);
         $cw = $currentWeather->getCurrentWeather(['lat' => $lat, 'lon' => $lon]);
@@ -54,6 +64,11 @@ class WeatherHome
 
     }
 
+    /*
+     * search function
+     * using ajax call to get the hint when user typing
+     *
+     */
     function weatherSearch($search){
         self::convertJsonToArray();
         //var_dump(self::$citys);
@@ -71,10 +86,16 @@ class WeatherHome
         echo json_encode($hint);
     }
 
+    /*
+     * get city weather by city id
+     * if find city
+     * return a weather information json to js.
+     *
+     */
     function findWeatherById($id,$unit){
         $currentWeather = new CurrentWeatherModel($unit);
         $weatherForecast = new WeatherForecast($unit);
-        $weatherFor3days = $weatherForecast->weatherForecast($id, 3);
+        $weatherFor3days = $weatherForecast->weatherForecast($id, 5);
         $weatherNext3Hours = $weatherForecast->weatherForecastNext3Hours($id);
         $weatherNestDay = $weatherForecast->weatherForecastNextDay($id);
         $cw = $currentWeather->getCurrentWeather($id);
@@ -87,15 +108,31 @@ class WeatherHome
         echo json_encode($weatherInfo);
     }
 
+    /*
+     * find all cities weather conditions in cities array and send it back to js
+     *
+     */
+
     function showAllCityFWeather($unit){
         $allCityWeather = new getAllCityWeather();
         echo $allCityWeather->getCitiesWeather($unit);
     }
 
+    /*
+     * search city weather video by city name
+     *
+     */
+
     function searchWeatherVideo($cityName){
           $weatherReportVideo = new YouTubeAPIModel();
           echo $weatherReportVideo->SearchVideo($cityName);
     }
+
+    /*
+     * change canada cities information from CanadaCity.json to array
+     *
+     *
+     */
 
     static function convertJsonToArray(){
         $string = file_get_contents("./City/CanadaCity.json");

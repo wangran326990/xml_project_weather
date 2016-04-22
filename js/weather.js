@@ -7,56 +7,6 @@ var map;
 var unit='imperial';
 var unitAbb='F';
 //var googleInfoWindow;
-//var citys= {
-//	'Hamilton':5969782,
-//	'Kingston':5992495,
-//	'Mississauga':6075357,
-//	'Niagara Falls':6087892,
-//	'Barrie':5894171,
-//	'Belleville':5897885,
-//	'Brampton':5907364,
-//	'Brant':5907983,
-//	'Brantford':5907990,
-//	'Brockville':5909294,
-//	'Burlington':4849826,
-//	'Cambridge':5913695,
-//	'Dryden':5942913,
-//	'Elliot Lake':5947866,
-//	'Greater Sudbury':5964700,
-//	'Guelph':5967629,
-//	'Haldimand County':5969093,
-//	'Kawartha Lakes':5989818,
-//	'Kenora':5991055,
-//	'Kitchener':5992996,
-//	'London':6058560,
-//	'Markham':2650379,
-//	'Norfolk County':6089125,
-//	'North Bay':6089426,
-//	'Orillia':6094325,
-//	'Oshawa':6094578,
-//	'Ottawa':6094817,
-//	'Owen Sound':6095645,
-//	'Pembroke':6100832,
-//	'Peterborough':6101645,
-//	'Pickering':6104111,
-//	'Port Colborne':6111704,
-//	'Prince Edward County':6113355,
-//	'Quinte West':6115355,
-//	'Sarnia':6141190,
-//	'Sault Ste. Marie':6141439,
-//	'St. Thomas':6158357,
-//	'Stratford':6157977,
-//	'Temiskaming Shores':6162659,
-//	'Thorold':6165719,
-//	'Thunder Bay':6166142,
-//	'Timmins':6166739,
-//	'Toronto':6167865,
-//	'Vaughan':4599503,
-//	'Waterloo':6176823,
-//	'Welland':6177869,
-//	'Windsor':6182958,
-//	'Woodstock':6184364
-//};
 
 var citys={};
 
@@ -79,16 +29,21 @@ function init(){
 
 }
 
+/**
+ * get current location
+ */
+
 function currentLocation(){
 	if(navigator.geolocation){
 		navigator.geolocation.getCurrentPosition(getWeatherInfo);
 
-	}else{
-
 	}
 }
 
-
+/**
+ * prevent form submit and return search result by ajax
+ *
+ */
 
 function submitFormOperation(){
 	$("#searchform").submit(
@@ -114,7 +69,13 @@ function submitFormOperation(){
 		}
 	)
 }
-	
+
+/**
+ *
+ * @param position
+ *
+ * get Weatheer information by latitude and Longitude
+ */
 
 function getWeatherInfo(position){
 	$url ="./index.php?route=WeatherHome/weatherInCurrentLocation/"+position.coords.latitude+'/'+position.coords.longitude+'/'+unit;
@@ -153,9 +114,9 @@ function getWeatherInfo(position){
 	});
 }
 
-/*
-	get City By Id
-
+/**
+ *
+ * get City weather information by city id
  */
 
 function getWeatherInfoByCity(){
@@ -165,6 +126,12 @@ function getWeatherInfoByCity(){
 		$("#livesearch").html("");
 	});
 }
+
+/**
+ *
+ * get City weather information by city id
+ * ajax get infomation
+ */
 
 function ajaxCityWeather(id,unit){
 	var url= "./index.php?route=WeatherHome/findWeatherById/"+id+"/"+unit;
@@ -202,6 +169,13 @@ function ajaxCityWeather(id,unit){
 	})
 }
 
+/**
+ * when click show ontarian weather button in the website
+ * return weather information of all the cities
+ *
+ */
+
+
 function showAllCityWeatherOnMap(){
 	$('.F-button').click(function(){
 		var url= "./index.php?route=WeatherHome/showAllCityFWeather/"+unit;
@@ -215,6 +189,12 @@ function showAllCityWeatherOnMap(){
 	})
 }
 
+/**
+ *
+ * @param obj
+ * @param units
+ * display Cities Weather on google map
+ */
 
 function displayCitisWeahterOnMap(obj,units){
 	console.log(units);
@@ -246,6 +226,10 @@ function displayCitisWeahterOnMap(obj,units){
 
 }
 
+/**
+ * show or hide weather detial on the page
+ */
+
 function hideWeatherDetail(){
 
 	$("body").on("click",".button-image",function(event){
@@ -257,6 +241,12 @@ function hideWeatherDetail(){
 	});
 
 }
+/**
+ *
+ * display current weather on the page
+ * @param currentWeather
+ * @returns {string}
+ */
 
 function displayCurrentWeather(currentWeather){
 		//console.log(currentWeather);
@@ -271,6 +261,13 @@ function displayCurrentWeather(currentWeather){
 
 }
 
+/**
+ *
+ * display current weather on the map
+ * @param currentWeather
+ * @returns {string}
+ */
+
 function displayCurrentWeatherMap(currentWeather){
 	//console.log(currentWeather);
 	var html ="";
@@ -284,6 +281,11 @@ function displayCurrentWeatherMap(currentWeather){
 
 }
 
+/**
+ * display weather of Next 3 hours
+ * @param Weather
+ */
+
 function displayNext3Hours(Weather){
 	//console.log(Weather);
 	var html ="";
@@ -295,7 +297,10 @@ function displayNext3Hours(Weather){
 
 }
 
-
+/**
+ * display weather of Next day
+ * @param Weather
+ */
 function displayNextDay(Weather){
 	//console.log(Weather);
 	var html ="";
@@ -306,6 +311,11 @@ function displayNextDay(Weather){
 	$("#NextDayWeather").removeClass('Loading').html(html);
 
 }
+
+/**
+ * display weather of Next days
+ * @param Weather
+ */
 
 function displayNextDays(Weather){
 	//console.log(Weather);
@@ -347,7 +357,11 @@ function displayNextDays(Weather){
 	$(".weatherHide").hide();
 }
 
-
+/**
+ * change date format
+ * @param date
+ * @returns {string}
+ */
 
 function formatDate(date) {
 	var
@@ -360,6 +374,12 @@ function formatDate(date) {
 
 	return [year, month, day].join('-');
 }
+
+/**
+ * change date into Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturay;
+ * @param weekday
+ * @returns {*}
+ */
 
 function getWeekDayName(weekday){
 	//console.log(weekday);
@@ -375,7 +395,12 @@ function getWeekDayName(weekday){
 
 	return weekdays[weekday];
 }
-
+/**
+ * get min and max temperatures
+ *
+ * @param item
+ * @returns {{long: number, max: string, min: string}}
+ */
 function getHandLTemp(item){
 	var max=0, min=0,maxTemp="",minTemp="", long=0;
 
@@ -405,7 +430,11 @@ function getHandLTemp(item){
 		}
 
 }
-
+/**
+ * Search function
+ *
+ *
+ */
 function searchCity(){
 	$('#searchBox').keyup(function(){
 		var hint='';
@@ -431,7 +460,10 @@ function searchCity(){
 // The following example creates a marker in Stockholm, Sweden using a DROP
 // animation. Clicking on the marker will toggle the animation between a BOUNCE
 // animation and no animation.
-
+/**
+ * init google map
+ *
+ */
 
 
 function initMap() {
@@ -447,16 +479,24 @@ function initMap() {
 }
 
 
-function MapByCountry(country){
-	var geocoder;
-	geocoder = new google.maps.Geocoder();
-	geocoder.geocode( {'address' : country}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			map.setCenter(results[0].geometry.location);
-		}
-	});
-}
-
+//function MapByCountry(country){
+//	var geocoder;
+//	geocoder = new google.maps.Geocoder();
+//	geocoder.geocode( {'address' : country}, function(results, status) {
+//		if (status == google.maps.GeocoderStatus.OK) {
+//			map.setCenter(results[0].geometry.location);
+//		}
+//	});
+//}
+/**
+ *
+ * create a marker on google map
+ * @param map
+ * @param pos
+ * @param icon
+ * @param title
+ * @returns {google.maps.Marker}
+ */
 
 
 function getMarker(map,pos,icon,title) {
@@ -474,7 +514,11 @@ function getMarker(map,pos,icon,title) {
 
 }
 
-
+/**
+ * create information Window for marker on google map
+ * @param info
+ * @returns {google.maps.InfoWindow}
+ */
 function getInfoWindow(info){
 	 var infowindow = new google.maps.InfoWindow({
 		content: info
@@ -483,21 +527,26 @@ function getInfoWindow(info){
 }
 
 
-function getCurrentLocation(){
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function (position) {
-			var pos = {
-				lat: position.coords.latitude,
-				lng: position.coords.longitude
+//function getCurrentLocation(){
+//	if (navigator.geolocation) {
+//		navigator.geolocation.getCurrentPosition(function (position) {
+//			var pos = {
+//				lat: position.coords.latitude,
+//				lng: position.coords.longitude
+//
+//			};
+//
+//			map.setCenter(pos);
+//
+//		})
+//	}
+//}
 
-			};
-
-			map.setCenter(pos);
-
-		})
-	}
-}
-
+/**
+ * clear all markers
+ *
+ * @param map
+ */
 function setMapOnAll(map) {
 	for (var i = 0; i < markers.length; i++) {
 		markers[i].setMap(map);
@@ -550,6 +599,11 @@ function changeUnit() {
 
 //YOUTUBE API
 
+/**
+ *
+ * get video info from php
+ * @param cityName
+ */
 function ajaxYouTube(cityName){
 	//console.log(cityName);
 	url="./index.php?route=WeatherHome/searchWeatherVideo/"+cityName;
@@ -560,6 +614,13 @@ function ajaxYouTube(cityName){
 			$('#videos').html(html);
 	})
 }
+
+/**
+ * Great Video on web page
+ * @param obj
+ * @param number
+ * @returns {string}
+ */
 
 function creatVideos(obj,number){
 	var html="";
@@ -593,13 +654,19 @@ function getCitiesArray(){
 
 
 //////////Google Chart API
-
+/**
+ * Load Goolge Chart and Call drowChart function
+ *
+ */
 
 function loadGoogleChart(){
 	google.charts.load('current', {'packages':['corechart']});
 	google.charts.setOnLoadCallback(drawChart);
 }
-
+/**
+ *
+ * draw a Line chart for temperature.
+ */
 
 function drawChart() {
 	//weatherFordays
@@ -619,6 +686,12 @@ function drawChart() {
 
 	chart.draw(data, options);
 }
+
+/**
+ * get data for drow chart.
+ *
+ * @returns {*[]}
+ */
 
 function getObjectValue() {
 	var temperature = [['Date','Temperature']];

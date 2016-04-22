@@ -24,6 +24,11 @@ class YouTubeAPIModel
         $this->apiKey = $apiKey!=''?$apiKey:"AIzaSyD03BUPUsVOstRlUIYbE-SwoED9Z0vRZl8";
     }
 
+/*
+ * build url
+ *
+ */
+
 
     public function urlBuilder($url){
         $url.="part=$this->part";
@@ -32,6 +37,12 @@ class YouTubeAPIModel
 
         return $url;
     }
+
+    /**
+     * @param $cityName
+     * @return video result
+     *
+     */
 
     public function SearchVideo($cityName){
         $this->q = $cityName . " Weather Report";

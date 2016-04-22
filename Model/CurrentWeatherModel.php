@@ -30,6 +30,10 @@ class CurrentWeatherModel
 
     }
 
+    /*
+     * get current weather
+     */
+
     public function getCurrentWeather($query){
         $cw = [];
         $currentWeather = self::$owm->getWeather($query, $this->units, $this->lang);

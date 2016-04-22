@@ -86,6 +86,10 @@ class WeatherForecast
 
     }
 
+    /*
+     * get weather report for next 3 hours
+     *
+     */
     public function weatherForecastNext3Hours($query){
         $forecastNext3Hours =[];
        $forecastWeather =  $this->weatherForecast($query, 1);
