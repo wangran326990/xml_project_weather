@@ -4,8 +4,8 @@
     <list default="true" id="6f759205-232c-4e33-b2a6-d81b7b669fc7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/View/WeatherHomeLoading.html" afterPath="$PROJECT_DIR$/View/WeatherHomeLoading.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/weather.css" afterPath="$PROJECT_DIR$/css/weather.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/weather.js" afterPath="$PROJECT_DIR$/js/weather.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.html" afterPath="$PROJECT_DIR$/test.html" />
     </list>
     <ignored path="weather.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,10 +30,11 @@
       <file leaf-file-name="weather.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/weather.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.21071012">
-              <caret line="407" column="19" selection-start-line="407" selection-start-column="9" selection-end-line="407" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.5632411">
+              <caret line="613" column="33" selection-start-line="613" selection-start-column="33" selection-end-line="613" selection-end-column="33" />
               <folding>
-                <marker date="1461304789625" expanded="true" signature="8821:8827" placeholder="..." />
+                <marker date="1461353564381" expanded="true" signature="8850:8856" placeholder="..." />
+                <marker date="1461353564381" expanded="true" signature="14278:14288" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -42,7 +43,7 @@
       <file leaf-file-name="WeatherHome.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Controller/WeatherHome.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="-9.307693">
               <caret line="99" column="4" selection-start-line="99" selection-start-column="4" selection-end-line="108" selection-end-column="5" />
               <folding />
             </state>
@@ -94,11 +95,21 @@
       <file leaf-file-name="WeatherHomeLoading.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/View/WeatherHomeLoading.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="130" column="86" selection-start-line="130" selection-start-column="86" selection-end-line="130" selection-end-column="86" />
+            <state vertical-scroll-proportion="-6.254237">
+              <caret line="35" column="101" selection-start-line="35" selection-start-column="101" selection-end-line="35" selection-end-column="101" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#3;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="weather.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/css/weather.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-9.807693">
+              <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -118,16 +129,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -163,7 +164,6 @@
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/Model/CurrentWeatherModel.php" />
         <option value="$PROJECT_DIR$/Model/WeatherForecast.php" />
-        <option value="$PROJECT_DIR$/css/weather.css" />
         <option value="$PROJECT_DIR$/libs/YouTubeAPI/YouTube.php" />
         <option value="$PROJECT_DIR$/libs/Router.php" />
         <option value="$PROJECT_DIR$/libs/YouTubeAPI/SearchYouTubeVideo.php" />
@@ -175,9 +175,10 @@
         <option value="$PROJECT_DIR$/Controller/WeatherHome.php" />
         <option value="$PROJECT_DIR$/Model/getAllCityWeather.php" />
         <option value="$PROJECT_DIR$/googleChart.html" />
-        <option value="$PROJECT_DIR$/js/weather.js" />
         <option value="$PROJECT_DIR$/test.html" />
+        <option value="$PROJECT_DIR$/css/weather.css" />
         <option value="$PROJECT_DIR$/View/WeatherHomeLoading.html" />
+        <option value="$PROJECT_DIR$/js/weather.js" />
       </list>
     </option>
   </component>
@@ -265,6 +266,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="weather" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="weather" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -410,7 +425,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23126338" sideWeight="0.49328858" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32845894" sideWeight="0.49785867" order="0" side_tool="false" content_ui="tabs" />
@@ -418,7 +433,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295838" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17933619" sideWeight="0.5067114" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31986532" sideWeight="0.49785867" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31986532" sideWeight="0.49785867" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295063" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884398" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -602,13 +617,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/weather.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="163" column="9" selection-start-line="163" selection-start-column="1" selection-end-line="163" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/libs/OpenWeatherAPI/vendor/cmfcmf/openweathermap-php-api/Cmfcmf/OpenWeatherMap/WeatherHistory.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
@@ -690,6 +698,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="181" column="24" selection-start-line="181" selection-start-column="19" selection-end-line="181" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -776,14 +785,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Controller/WeatherHome.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="99" column="4" selection-start-line="99" selection-start-column="4" selection-end-line="108" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -794,10 +795,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Controller/WeatherHome.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.307693">
+          <caret line="99" column="4" selection-start-line="99" selection-start-column="4" selection-end-line="108" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/weather.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.807693">
+          <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/View/WeatherHomeLoading.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="130" column="86" selection-start-line="130" selection-start-column="86" selection-end-line="130" selection-end-column="86" />
+        <state vertical-scroll-proportion="-6.254237">
+          <caret line="35" column="101" selection-start-line="35" selection-start-column="101" selection-end-line="35" selection-end-column="101" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#1;n#div#3;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
@@ -806,10 +823,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/weather.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21071012">
-          <caret line="407" column="19" selection-start-line="407" selection-start-column="9" selection-end-line="407" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.5632411">
+          <caret line="613" column="33" selection-start-line="613" selection-start-column="33" selection-end-line="613" selection-end-column="33" />
           <folding>
-            <marker date="1461304789625" expanded="true" signature="8821:8827" placeholder="..." />
+            <marker date="1461353564381" expanded="true" signature="8850:8856" placeholder="..." />
+            <marker date="1461353564381" expanded="true" signature="14278:14288" placeholder="..." />
           </folding>
         </state>
       </provider>

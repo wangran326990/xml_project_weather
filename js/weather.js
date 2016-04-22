@@ -75,6 +75,7 @@ function init(){
 
 		//createVideo();
 		getCitiesArray();
+		loadGoogleChart();
 
 }
 
@@ -138,7 +139,7 @@ function getWeatherInfo(position){
 		//////add chart/////////////////
 		//loadGoogleChart();
 		//getObjectValue();
-		loadGoogleChart();
+		drawChart();
 		////////////////////////////////
 		ajaxYouTube(currentWeather.city);
 		map.setCenter(pos);
@@ -197,7 +198,7 @@ function ajaxCityWeather(id,unit){
 		marker.addListener('click', function() {
 			googleInfoWindow.open(map, marker);
 		});
-
+		drawChart();
 	})
 }
 
@@ -394,7 +395,7 @@ function getHandLTemp(item){
 				}
 			}
 		});
-		long = (max-min)*20;
+		long = (max-min)*6;
 		long += "px";
 
 		return {
@@ -567,7 +568,7 @@ function creatVideos(obj,number){
 		if(i<number) {
 			console.log(video);
 			var url = "https://www.youtube.com/embed/" + video.id.videoId;
-			html += "<div class='col-lg-6'><h3>"+video.snippet.title+"</h3><iframe type='text/html'  width='440' height='390' src=" + "'" + url + "'" + "></iframe></div>";
+			html += "<div class='col-lg-6'><h3>"+video.snippet.title+"</h3><iframe type='text/html' style='width:100%' height='390' src=" + "'" + url + "'" + "></iframe></div>";
 		}
 	});
 	return html;
@@ -603,13 +604,15 @@ function loadGoogleChart(){
 function drawChart() {
 	//weatherFordays
 	var temperatures =getObjectValue();
-	console.log(temperatures);
+//	console.log(temperatures);
 	var data = google.visualization.arrayToDataTable(temperatures);
 
 	var options = {
 		title: 'Company Performance',
 		curveType: 'function',
-		legend: { position: 'bottom' }
+		legend: { position: 'bottom' },
+		backgroundColor: '#F8F8F8',
+		is3D: true
 	};
 
 	var chart = new google.visualization.LineChart(document.getElementById('displayChart'));
@@ -626,3 +629,7 @@ function getObjectValue() {
 	//console.log(temperature);
 	return temperature;
 }
+
+$(window).resize(function(){
+	drawChart();
+});
