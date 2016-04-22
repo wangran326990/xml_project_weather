@@ -69,6 +69,7 @@ class getAllCityWeather
             'Windsor'=>6182958,
             'Woodstock'=>6184364
         ];
+        //$this->convertJsonToArray();
         $this->apiKey = $apiKey!=''?$apiKey:OPENWEATHER_APIKEY;
         $this->fetcher = new CurlFetcher();
     }
@@ -93,5 +94,14 @@ class getAllCityWeather
         return $this->url.$id;
     }
 
+    private function convertJsonToArray(){
+        $string = file_get_contents("./City/CanadaCity.json");
+        $citys = json_decode($string, true);
+        //var_dump($citys);
+        foreach($citys as $city){
+            $this->citys[$city['name']]= $city['_id'];
+        }
 
+        // var_dump(self::$citys);
+    }
 }
