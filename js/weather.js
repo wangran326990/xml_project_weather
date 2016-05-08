@@ -123,6 +123,7 @@ function getWeatherInfoByCity(){
 	$("body").on("click",".city",function(){
 		var id = $(this).attr("name");
 		ajaxCityWeather(id,unit);
+		$("#currentCity").css("color","white");
 		$("#livesearch").html("");
 	});
 }
@@ -327,7 +328,7 @@ function displayNextDays(Weather){
 		//console.log(i);
 		html +="<div class='weather-detail'><div class='row weather-decoration'><div class='col-sm-2'>";
 		if(formatDate(date) == i) {
-			html += "<h4>Today</h4>";
+			html += "<h4>Today</h4></div>";
 		}else{
 			//console.log(i);
 			//console.log(new Date(i));
@@ -351,8 +352,9 @@ function displayNextDays(Weather){
 			html +="<p><span>cloud:</span>"+detail.cloud.Description+" "+detail.cloud.Value+"</p></div></div></div>";
 		});
 		html +="</div>";
+		html+="</div>";
 	});
-	html+="</div>";
+
 	$("#next-five").html(html);
 	$(".weatherHide").hide();
 }
