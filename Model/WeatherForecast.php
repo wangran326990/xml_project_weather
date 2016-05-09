@@ -104,7 +104,7 @@ class WeatherForecast
 
     public function weatherForecastNextDay($query){
         $forecastNextDay =[];
-        $forecastWeather =  $this->weatherForecast($query, 2);
+        $forecastWeather =  $this->weatherForecast($query, 4);
         $date =date('Y-m-d');
         $NextDate =  date('Y-m-d', strtotime($date .' +1 day'));
         //var_dump($NextDate);

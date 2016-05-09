@@ -29,7 +29,7 @@ class WeatherHome
 
      *
      */
-    public function index()
+    public static function index()
     {
 
         //$currentWeather = new CurrentWeatherModel();
@@ -46,7 +46,7 @@ class WeatherHome
     *
     */
 
-    public function weatherInCurrentLocation($lat, $lon, $unit)
+    public static function weatherInCurrentLocation($lat, $lon, $unit)
     {
         $currentWeather = new CurrentWeatherModel($unit);
         $weatherForecast = new WeatherForecast($unit);
@@ -69,7 +69,7 @@ class WeatherHome
      * using ajax call to get the hint when user typing
      *
      */
-    function weatherSearch($search){
+    public static function  weatherSearch($search){
         self::convertJsonToArray();
         //var_dump(self::$citys);
         $hint =[];
@@ -92,7 +92,7 @@ class WeatherHome
      * return a weather information json to js.
      *
      */
-    function findWeatherById($id,$unit){
+    public static function findWeatherById($id,$unit){
         $currentWeather = new CurrentWeatherModel($unit);
         $weatherForecast = new WeatherForecast($unit);
         $weatherFor3days = $weatherForecast->weatherForecast($id, 5);
@@ -113,7 +113,7 @@ class WeatherHome
      *
      */
 
-    function showAllCityFWeather($unit){
+    public static function showAllCityFWeather($unit){
         $allCityWeather = new getAllCityWeather();
         echo $allCityWeather->getCitiesWeather($unit);
     }
@@ -123,7 +123,7 @@ class WeatherHome
      *
      */
 
-    function searchWeatherVideo($cityName){
+    public static function searchWeatherVideo($cityName){
           $weatherReportVideo = new YouTubeAPIModel();
           echo $weatherReportVideo->SearchVideo($cityName);
     }
